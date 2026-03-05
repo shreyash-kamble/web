@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>HUB</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@300;400;500;700&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:#080808;overflow:hidden;}
+:root{
+  --bg:#080808;--s1:#111111;--s2:#181818;--s3:#1e1e1e;
+  --border:#2a2a2a;--border2:#333;
+  --red:#ff3d00;--orange:#ff8c00;--green:#39d98a;--blue:#00c8ff;--yellow:#ffd600;--purple:#c084fc;
+  --text:#f5f5f5;--text2:#d0d0d0;--text3:#a8a8a8;--dim:#444;--muted:#888;--faint:#2a2a2a;
+  --font-d:'Bebas Neue',sans-serif;--font-m:'JetBrains Mono',monospace;--font-b:'Barlow Condensed',sans-serif;
+}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--dim);}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;font-family:var(--font-b);position:relative;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.blob{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.12;pointer-events:none;z-index:0;animation:pulse 8s ease-in-out infinite;}
+.blob1{width:400px;height:400px;background:var(--blue);top:-100px;left:-100px;animation-delay:0s;}
+.blob2{width:350px;height:350px;background:var(--red);bottom:-80px;right:-80px;animation-delay:3s;}
+.blob3{width:250px;height:250px;background:var(--purple);top:50%;left:60%;animation-delay:6s;}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:0.12;}50%{transform:scale(1.15);opacity:0.18;}}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.container{position:relative;z-index:1;width:100%;max-width:480px;padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:40px;}
+
+/* HEADER */
+.header{text-align:center;}
+.header-eyebrow{font-family:var(--font-m);font-size:10px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:10px;}
+.header-eyebrow::before,.header-eyebrow::after{content:'';display:block;width:30px;height:1px;background:var(--border2);}
+.header-title{font-family:var(--font-d);font-size:clamp(72px,18vw,100px);letter-spacing:6px;color:var(--text);line-height:0.9;}
+.header-title span{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{font-family:var(--font-m);font-size:11px;color:var(--muted);letter-spacing:2px;margin-top:12px;}
+
+/* CARDS */
+.cards{width:100%;display:flex;flex-direction:column;gap:12px;}
+.card{display:flex;align-items:center;gap:20px;padding:20px 24px;background:var(--s1);border:1px solid var(--border);border-radius:4px;text-decoration:none;position:relative;overflow:hidden;transition:border-color 0.2s,background 0.2s,transform 0.15s;cursor:pointer;}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--card-color,var(--blue));transition:width 0.2s;}
+.card:hover,.card:active{background:var(--s2);border-color:var(--card-color,var(--blue));transform:translateX(4px);}
+.card:hover::before,.card:active::before{width:4px;}
+.card-active{animation:cardIn 0.5s ease both;}
+.card-icon{font-size:28px;min-width:40px;text-align:center;line-height:1;}
+.card-body{flex:1;}
+.card-title{font-family:var(--font-d);font-size:28px;letter-spacing:2px;color:var(--text);line-height:1;margin-bottom:4px;}
+.card-desc{font-family:var(--font-m);font-size:10px;color:var(--muted);letter-spacing:1px;}
+.card-live{font-family:var(--font-m);font-size:9px;letter-spacing:0.5px;margin-top:5px;padding:2px 7px;border-radius:2px;display:inline-block;}
+.card-arrow{font-family:var(--font-m);font-size:14px;color:var(--dim);transition:color 0.2s,transform 0.2s;flex-shrink:0;}
+.card:hover .card-arrow,.card:active .card-arrow{color:var(--card-color,var(--blue));transform:translateX(4px);}
+
+.footer{font-family:var(--font-m);font-size:9px;color:var(--faint);letter-spacing:3px;text-transform:uppercase;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px);pointer-events:none;z-index:999;}
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="container">
+
+  <div class="header">
+    <div class="header-eyebrow">personal dashboard</div>
+    <div class="header-title">MY<br><span>HUB</span></div>
+    <div class="header-sub">SELECT A MODULE</div>
+  </div>
+
+  <div class="cards">
+
+    <a class="card card-active" href="GYM_PLAN.html" style="--card-color:#b2ff59;animation-delay:0.1s">
+      <div class="card-icon">💪</div>
+      <div class="card-body">
+        <div class="card-title">PPL BEAST</div>
+        <div class="card-desc">GYM PLAN · WORKOUT TRACKER</div>
+        <div class="card-live" id="gym-live" style="background:rgba(178,255,89,0.08);color:#b2ff59;display:none"></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card card-active" href="SHIFTS.html" style="--card-color:#00e5ff;animation-delay:0.2s">
+      <div class="card-icon">⏱️</div>
+      <div class="card-body">
+        <div class="card-title">SHIFTS</div>
+        <div class="card-desc">WORK SCHEDULE · TIME TRACKING</div>
+        <div class="card-live" id="shifts-live" style="background:rgba(0,229,255,0.08);color:#00e5ff;display:none"></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+    <a class="card card-active" href="EXPENSES.html" style="--card-color:#ff3d00;animation-delay:0.3s">
+      <div class="card-icon">💸</div>
+      <div class="card-body">
+        <div class="card-title">SPENT</div>
+        <div class="card-desc">EXPENSES · BUDGET TRACKER</div>
+        <div class="card-live" id="spent-live" style="background:rgba(255,61,0,0.08);color:#ff3d00;display:none"></div>
+      </div>
+      <div class="card-arrow">→</div>
+    </a>
+
+  </div>
+
+  <div class="footer">v2.0 · personal use only</div>
+
+</div>
+
+<script>
+function weekDates(){
+  const now=new Date(),day=now.getDay();
+  const mon=new Date(now);
+  mon.setDate(now.getDate()-(day===0?6:day-1));
+  const out=[];
+  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);out.push(d.toISOString().slice(0,10));}
+  return out;
+}
+function fmtH(h){const w=Math.floor(h),m=Math.round((h-w)*60);return m?w+'h '+m+'m':w+'h';}
+
+function loadStats(){
+  const wDates=weekDates();
+
+  // GYM
+  try{
+    const g=JSON.parse(localStorage.getItem('pplbeast_v3')||'null');
+    if(g&&g.weeks&&g.currentWeek){
+      const wd=g.weeks[g.currentWeek]||[];
+      const done=wd.filter(d=>d.done).length;
+      const el=document.getElementById('gym-live');
+      if(done>0){el.textContent=done+'/'+wd.length+' days done · Week '+g.currentWeek;el.style.display='inline-block';}
+    }
+  }catch(e){}
+
+  // SHIFTS — always show next upcoming shift
+  try{
+    const s=JSON.parse(localStorage.getItem('shifts_v4')||'null');
+    if(s&&s.shifts){
+      const today=new Date().toISOString().slice(0,10);
+      const el=document.getElementById('shifts-live');
+      const next=s.shifts.filter(x=>x.date>=today).sort((a,b)=>a.date.localeCompare(b.date)||a.start.localeCompare(b.start))[0];
+      if(next){
+        const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+        const dow=days[new Date(next.date).getDay()];
+        const dd=+next.date.slice(8);
+        const mon=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+next.date.slice(5,7)-1];
+        const label=next.date===today?'Today':'Next';
+        el.textContent=label+': '+dow+' '+dd+' '+mon+' @ '+next.start+' · '+next.loc;
+        el.style.display='inline-block';
+      }
+    }
+  }catch(e){}
+
+  // EXPENSES
+  try{
+    const e=JSON.parse(localStorage.getItem('spent_v2')||'null');
+    if(e&&e.expenses){
+      const wt=e.expenses.filter(x=>wDates.includes(x.date)).reduce((a,x)=>a+x.amount,0);
+      const budget=e.weekBudget||200;
+      const left=budget-wt;
+      if(wt>0){
+        const el=document.getElementById('spent-live');
+        el.textContent=left>=0?'£'+left.toFixed(0)+' left of £'+budget+' budget':'£'+Math.abs(left).toFixed(0)+' over budget!';
+        el.style.color=left<0?'#ff3d00':'#39d98a';
+        el.style.display='inline-block';
+      }
+    }
+  }catch(e){}
+}
+loadStats();
+</script>
+</body>
+</html>
